@@ -40,7 +40,7 @@ Only parameter to setup inside xml configuration is **network.socket.unix** whic
 
 4. Open *./node_modules/orientjs/lib/transport/binary/connection.js* in text editor modify **createSocket** function
 
-	**from **
+	**from**
 	```js
 	Connection.prototype.createSocket = function () {
 		  var socket = net.createConnection(this.port, this.host);
@@ -54,9 +54,9 @@ Only parameter to setup inside xml configuration is **network.socket.unix** whic
 	Connection.prototype.createSocket = function () {
 	    var socket = null;
 	    var isUnix = ['linux','darwin'].indexOf(process.platform) > -1 ;
-            if (if (this.host.indexOf('unix:') === 0 && isUnix) { && isUnix) {
-                var uxPath = this.host.replace('unix:','');
-                socket = net.createConnection(uxPath);
+        if (this.host.indexOf('unix:') === 0 && isUnix) {
+            var uxPath = this.host.replace('unix:','');
+            socket = net.createConnection(uxPath);
 	    } else {
 	        socket = net.createConnection(this.port, this.host);
 	    }
@@ -110,4 +110,3 @@ Only parameter to setup inside xml configuration is **network.socket.unix** whic
 > - JNA library to implement setsockopt [jnasockopt](https://github.com/abligh/jnasockopt)
 
 That's all folks!
-
