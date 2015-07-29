@@ -1,4 +1,4 @@
-package io.travelin.unix.test;
+package io.unix.test;
 
 import io.unix.socket.UnixServerSocket;
 import io.unix.socket.UnixSocketAddress;
