@@ -1,7 +1,8 @@
 package io.unix.sock;
 
-// (c) 2015 Alex Bligh
-// Released under the Apache licence - see LICENSE for details
+//(c) 2015 Alex Bligh
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -16,10 +17,6 @@ import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import com.sun.jna.ptr.IntByReference;
 
-/*
- * Fork of:
- * https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
- */
 public class JNASockOpt {
 
     private static Field fdField;

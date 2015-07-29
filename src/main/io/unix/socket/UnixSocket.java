@@ -1,17 +1,15 @@
 package io.unix.socket;
 
+//(c) 2015 kohl schutter
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketAddress;
 
 import io.unix.ClassUtil;
-import io.unix.NativeUnixSocket;
 
-/**
- * Implementation of an AF_UNIX domain socket.
- * Fork of :
- * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
- */
 public class UnixSocket extends Socket {
 
 	protected UnixSocketImpl impl;
@@ -102,21 +100,9 @@ public class UnixSocket extends Socket {
 	@Override
 	public String toString() {
 		if (isConnected()) {
-			return "AFUNIXSocket[fd=" + impl.getFD() + ";path="	+ addr.getSocketFile() + "]";
+			return "UNIXSocket[fd=" + impl.getFD() + ";path="	+ addr.getSocketFile() + "]";
 		}
 		return "UnixXSocket[unconnected]";
 	}
 
-	/**
-	 * Returns <code>true</code> iff {@link UnixSocket}s are supported by the
-	 * current Java VM.
-	 *
-	 * To support {@link UnixSocket}s, a custom JNI library must be loaded that
-	 * is supplied with <em>junixsocket</em>.
-	 *
-	 * @return {@code true} iff supported.
-	 */
-	public static boolean isSupported() {
-		return NativeUnixSocket.isLoaded();
-	}
 }

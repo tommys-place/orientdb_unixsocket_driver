@@ -1,5 +1,9 @@
 package io.unix.socket;
 
+//(c) 2015 kohl schutter
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,11 +13,6 @@ import java.net.SocketException;
 import io.unix.ClassUtil;
 import io.unix.NativeUnixSocket;
 
-/**
- * The server part of an AF_UNIX domain socket.
- * Fork of :
- * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
- */
 public class UnixServerSocket extends ServerSocket {
 
 	private final UnixSocketImpl implementation;
@@ -131,7 +130,4 @@ public class UnixServerSocket extends ServerSocket {
 		}
 	}
 
-	public static boolean isSupported() {
-		return NativeUnixSocket.isLoaded();
-	}
 }

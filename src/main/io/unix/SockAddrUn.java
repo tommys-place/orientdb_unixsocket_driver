@@ -9,21 +9,9 @@ import com.sun.jna.Structure;
 /**
  * A Unix domain socket address is represented in the following structure:
  *
- * <code>
- * #define UNIX_PATH_MAX 108
- *
- * struct sockaddr_un {
- *   sa_family_t sun_family;
- *   char sun_path[UNIX_PATH_MAX];
- * };
- * </code>
- *
  * sun_family always contains AF_UNIX.
  *
  * Look man unix(7) for more infos
- */
-/**
- * A class which represents the structure sockaddr_un.
  */
 class SockAddrUn extends Structure {
 

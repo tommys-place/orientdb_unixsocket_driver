@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.sun.jna.Structure;
 
+
+/**
+ * Struct for get/set socket linger options of underlying system
+ */
 public class JNASockOptionLingerStruct  extends Structure {
 
 	public static class ByReference extends JNASockOptionLingerStruct implements Structure.ByReference {}

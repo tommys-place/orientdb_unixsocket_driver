@@ -1,9 +1,9 @@
 package io.unix.sock;
 
-/*
- * Fork of:
- * https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
- */
+//(c) 2015 Alex Bligh
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
+
 class JNASockOptionDetailsMac extends JNASockOptionDetails {
 
 	public JNASockOptionDetailsMac() {

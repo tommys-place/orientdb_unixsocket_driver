@@ -2,15 +2,11 @@ package io.unix.sock;
 
 // (c) 2015 Alex Bligh
 // Released under the Apache licence - see LICENSE for details
+// Fork of https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-/*
- * Fork of:
- * https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
- */
 
 public class JNASockOptionDetails {
 	static JNASockOptionDetails instance = null;

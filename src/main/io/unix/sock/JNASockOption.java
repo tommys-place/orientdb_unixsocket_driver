@@ -1,12 +1,12 @@
 package io.unix.sock;
 
+//(c) 2015 Alex Bligh
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
+
+
 // This enum contains all the socket options used on any platform
 // A perl script translates these into the appropriate values for each platform
-
-/*
- * Fork of:
- * https://github.com/abligh/jnasockopt/tree/master/src/org/jnasockopt
- */
 public enum JNASockOption {
 	ALG_SET_IV,
 	ALG_SET_KEY,

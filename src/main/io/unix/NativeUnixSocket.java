@@ -1,5 +1,9 @@
 package io.unix;
 
+//(c) 2015 tommys-place
+//Released under the Apache licence - see LICENSE for details
+
+
 import io.unix.sock.JNASockOpt;
 import io.unix.sock.JNASockOption;
 import io.unix.sock.JNASockOptionDetails;
@@ -22,7 +26,7 @@ import com.sun.jna.Native;
 import com.sun.jna.ptr.IntByReference;
 
 /**
- * JNI connector to native JNI C code.
+ * JNA Connector to native lib.
  */
 final public class NativeUnixSocket {
 
@@ -34,15 +38,6 @@ final public class NativeUnixSocket {
   static final int ECONNREFUSED = 111;
   static final int EAGAIN = 11;
   static final int EWOULDBLOCK = 11;
-
-  // TODO - check env supported
-  public static boolean isLoaded() {
-    return true;
-  }
-
-  static void checkSupported() {
-  }
-
 
   static int getOption(JNASockOption option) throws IOException {
 	  return JNASockOptionDetails.getInstance().getOption(option);

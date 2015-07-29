@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.sun.jna.Structure;
 
+/**
+ * Struct for get/set socket options of underlying system
+ */
 public class JNASockOptionTimevalStruct  extends Structure {
 
 	public static class ByReference extends JNASockOptionTimevalStruct implements Structure.ByReference {}

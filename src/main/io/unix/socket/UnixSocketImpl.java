@@ -1,5 +1,9 @@
 package io.unix.socket;
 
+//(c) 2015 kohl schutter
+//Released under the Apache licence - see LICENSE for details
+//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +19,6 @@ import io.unix.NativeUnixSocket;
 
 /**
  * The Java-part of the {@link UnixSocket} implementation.
- *
- * Fork of :
- * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
  */
 class UnixSocketImpl extends SocketImpl {
 

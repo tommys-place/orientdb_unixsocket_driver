@@ -1,5 +1,8 @@
 package io.unix;
 
+//(c) 2015 tommys-place
+//Released under the Apache licence - see LICENSE for details
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Field;

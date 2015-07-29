@@ -1,5 +1,9 @@
 package io.unix;
 
+//(c) 2015 tommys-place
+//Released under the Apache licence - see LICENSE for details
+
+
 import java.nio.ByteBuffer;
 
 import com.sun.jna.Native;
@@ -8,6 +12,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
 /**
+ * Mapping to native lib
  * NOTE: DirectMapping is much faster but var args NOT SUPORTED
  */
 class CLibrary  {
