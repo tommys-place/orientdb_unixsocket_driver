@@ -105,8 +105,6 @@ Only parameter to setup inside xml configuration is **network.socket.unix** whic
 
 > **Credits:**
 
-> - NIO channel for sockets [uds4j](https://github.com/ihiroky/uds4j)
 > - Unix Domain Sockets in Java (AF_UNIX) [junixsocket](https://github.com/kohlschutter/junixsocket)
-> - JNA library to implement setsockopt [jnasockopt](https://github.com/abligh/jnasockopt)
 
 That's all folks!

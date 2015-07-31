@@ -1,8 +1,6 @@
 package io.unix;
 
-//(c) 2015 tommys-place
-//Released under the Apache licence - see LICENSE for details
-
+import io.unix.struct.SockAddrUn;
 
 import java.nio.ByteBuffer;
 
@@ -12,7 +10,6 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
 /**
- * Mapping to native lib
  * NOTE: DirectMapping is much faster but var args NOT SUPORTED
  */
 class CLibrary  {
@@ -56,12 +53,16 @@ class CLibrary  {
 	public static native int ioctl(int fd, int cmd, byte[] arg);
     public static native int ioctl(int fd, int cmd, Pointer p);
 
-    //socket methods
+    //socket options
 
-    /*
-	public static native int setsockopt(int s, int level, int optname, byte[] optval, int optlen);
-	public static native int getsockopt(int s, int level, int optname, byte[] optval, IntByReference optlen);
-	*/
+    public static native int setsockopt(int fd, int level, int optname, Pointer optval, int optlen);
+	public static native int setsockopt(int fd, int level, int optname, ByteBuffer optval, int optlen);
+
+	public static native int getsockopt(int fd, int level, int optname, Pointer optval, int optlen);
+	public static native int getsockopt(int fd, int level, int optname, IntByReference optval, int optlen);
+	public static native int getsockopt(int fd, int level, int optname, ByteBuffer optval, IntByReference optlen);
+
+    //socket methods
 
 	public static native int socket(int domain, int type, int protocol);
 	public static native int connect(int s, SockAddrUn name, int namelen);

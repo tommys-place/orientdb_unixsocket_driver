@@ -1,15 +1,15 @@
 package io.unix.socket;
 
-//(c) 2015 kohl schutter
-//Released under the Apache licence - see LICENSE for details
-//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
-
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import io.unix.ClassUtil;
 
+/*
+ * Original author Kohl Schutter
+ * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ */
 
 /**
  * Describes an {@link InetSocketAddress} that actually uses AF_UNIX sockets
@@ -17,6 +17,7 @@ import io.unix.ClassUtil;
  *
  * The ability to specify a port number is not specified by AF_UNIX sockets, but
  * we need it sometimes, for example for RMI-over-AF_UNIX.
+ *
  */
 public class UnixSocketAddress extends InetSocketAddress {
 

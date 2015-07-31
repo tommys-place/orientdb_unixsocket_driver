@@ -1,15 +1,18 @@
 package io.unix.socket;
 
-//(c) 2015 kohl schutter
-//Released under the Apache licence - see LICENSE for details
-//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+/*
+ * Original author Kohl Schutter
+ * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ */
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketAddress;
-
 import io.unix.ClassUtil;
 
+/**
+ * Implementation of an AF_UNIX domain socket.
+ */
 public class UnixSocket extends Socket {
 
 	protected UnixSocketImpl impl;
@@ -37,7 +40,7 @@ public class UnixSocket extends Socket {
 	 * @return A new, unbound socket.
 	 */
 	public static UnixSocket newInstance() throws IOException {
-		final UnixSocketImpl impl = new UnixSocketImpl.Lenient();
+		final UnixSocketImpl impl = new UnixSocketLenientImpl();
 		UnixSocket instance = new UnixSocket(impl);
 		instance.impl = impl;
 		return instance;

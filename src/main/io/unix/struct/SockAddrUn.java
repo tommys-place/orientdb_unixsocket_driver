@@ -1,4 +1,4 @@
-package io.unix;
+package io.unix.struct;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -9,11 +9,20 @@ import com.sun.jna.Structure;
 /**
  * A Unix domain socket address is represented in the following structure:
  *
+ * <code>
+ * #define UNIX_PATH_MAX 108
+ *
+ * struct sockaddr_un {
+ *   sa_family_t sun_family;
+ *   char sun_path[UNIX_PATH_MAX];
+ * };
+ * </code>
+ *
  * sun_family always contains AF_UNIX.
  *
  * Look man unix(7) for more infos
  */
-class SockAddrUn extends Structure {
+public class SockAddrUn extends Structure {
 
     /** The maximum length of sun_path. */
     private static final int UNIX_PATH_MAX = 108;
@@ -33,7 +42,13 @@ class SockAddrUn extends Structure {
     /**
      * Constructs a new instance.
      */
-    public SockAddrUn() {
+    public SockAddrUn() {}
+
+    public void setSunPath(String sunPath) {
+        if (sunPath == null) {
+            throw new NullPointerException("bytes");
+        }
+    	setSunPath(sunPath.getBytes());
     }
 
     public void setSunPath(byte[] sunPath) {

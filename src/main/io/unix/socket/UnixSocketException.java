@@ -1,10 +1,11 @@
 package io.unix.socket;
 
-//(c) 2015 kohl schutter
-//Released under the Apache licence - see LICENSE for details
-//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
-
 import java.net.SocketException;
+
+/*
+ * Original author Kohl Schutter
+ * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ */
 
 /**
  * Something went wrong with the communication to a Unix socket.

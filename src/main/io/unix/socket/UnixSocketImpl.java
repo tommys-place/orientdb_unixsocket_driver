@@ -1,15 +1,10 @@
 package io.unix.socket;
 
-//(c) 2015 kohl schutter
-//Released under the Apache licence - see LICENSE for details
-//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
-
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.SocketImpl;
@@ -17,29 +12,33 @@ import java.net.SocketOptions;
 
 import io.unix.NativeUnixSocket;
 
+/*
+ * Original author Kohl Schutter
+ * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ */
+
 /**
  * The Java-part of the {@link UnixSocket} implementation.
  */
 class UnixSocketImpl extends SocketImpl {
 
-	private static final int SHUT_RD = 0;
-	private static final int SHUT_WR = 1;
-	private static final int SHUT_RD_WR = 2;
+	static final int SHUT_RD = 0;
+	static final int SHUT_WR = 1;
+	static final int SHUT_RD_WR = 2;
 
 	private String socketFile;
 	private boolean closed = false;
 	private boolean bound = false;
 	private boolean connected = false;
 
-	private boolean closedInputStream = false;
-	private boolean closedOutputStream = false;
-
-	private final AFUNIXInputStream in = new AFUNIXInputStream();
-	private final AFUNIXOutputStream out = new AFUNIXOutputStream();
+	private final UnixInputStream in;
+	private final UnixOutputStream out;
 
 	UnixSocketImpl() {
 		super();
 		this.fd = new FileDescriptor();
+		in = new UnixInputStream(this);
+		out = new UnixOutputStream(this);
 	}
 
 	FileDescriptor getFD() {
@@ -77,12 +76,6 @@ class UnixSocketImpl extends SocketImpl {
 	@Override
 	protected void bind(InetAddress host, int port) throws IOException {
 		throw new SocketException("Cannot bind to this type of address: " + InetAddress.class);
-	}
-
-	private void checkClose() throws IOException {
-		if (closedInputStream && closedOutputStream) {
-			// close();
-		}
 	}
 
 	@Override
@@ -130,6 +123,7 @@ class UnixSocketImpl extends SocketImpl {
 
 	@Override
 	protected void create(boolean stream) throws IOException {
+
 	}
 
 	@Override
@@ -158,106 +152,6 @@ class UnixSocketImpl extends SocketImpl {
 		NativeUnixSocket.write(fd, new byte[] { (byte) (data & 0xFF) }, 0, 1);
 	}
 
-	private final class AFUNIXInputStream extends InputStream {
-		private boolean streamClosed = false;
-
-		@Override
-		public int read(byte[] buf, int off, int len) throws IOException {
-			if (streamClosed) {
-				throw new IOException("This InputStream has already been closed.");
-			}
-			if (len == 0) {
-				return 0;
-			}
-			int maxRead = buf.length - off;
-			if (len > maxRead) {
-				len = maxRead;
-			}
-			try {
-				return NativeUnixSocket.read(fd, buf, off, len);
-			} catch (final IOException e) {
-				throw (IOException) new IOException(e.getMessage() + " at "	+ UnixSocketImpl.this.toString()).initCause(e);
-			}
-		}
-
-		@Override
-		public int read() throws IOException {
-			final byte[] buf1 = new byte[1];
-			final int numRead = read(buf1, 0, 1);
-			if (numRead <= 0) {
-				return -1;
-			} else {
-				return buf1[0] & 0xFF;
-			}
-		}
-
-		@Override
-		public void close() throws IOException {
-
-			if (streamClosed) {
-				return;
-			}
-			streamClosed = true;
-			if (fd.valid()) {
-				NativeUnixSocket.shutdown(fd, SHUT_RD);
-			}
-
-			closedInputStream = true;
-			checkClose();
-		}
-
-		@Override
-		public int available() throws IOException {
-			final int av = NativeUnixSocket.available(fd);
-			return av;
-		}
-	}
-
-	private final class AFUNIXOutputStream extends OutputStream {
-		private boolean streamClosed = false;
-
-		@Override
-		public void write(int oneByte) throws IOException {
-			final byte[] buf1 = new byte[] { (byte) oneByte };
-			write(buf1, 0, 1);
-		}
-
-		@Override
-		public void write(byte[] buf, int off, int len) throws IOException {
-			if (streamClosed) {
-				throw new UnixSocketException("This OutputStream has already been closed.");
-			}
-			if (len > buf.length - off) {
-				throw new IndexOutOfBoundsException();
-			}
-			try {
-				while (len > 0 && !Thread.interrupted()) {
-					final int written = NativeUnixSocket.write(fd, buf, off, len);
-					if (written == -1) {
-						throw new IOException("Unspecific error while writing");
-					}
-					len -= written;
-					off += written;
-				}
-			} catch (final IOException e) {
-				throw (IOException) new IOException(e.getMessage() + " at "	+ UnixSocketImpl.this.toString()).initCause(e);
-			}
-		}
-
-		@Override
-		public void close() throws IOException {
-
-			if (streamClosed) {
-				return;
-			}
-			streamClosed = true;
-			if (fd.valid()) {
-				NativeUnixSocket.shutdown(fd, SHUT_WR);
-			}
-			closedOutputStream = true;
-			checkClose();
-		}
-	}
 
 	@Override
 	public String toString() {
@@ -345,6 +239,7 @@ class UnixSocketImpl extends SocketImpl {
 	protected void shutdownInput() throws IOException {
 		if (!closed && fd.valid()) {
 			NativeUnixSocket.shutdown(fd, SHUT_RD);
+			// TODO in.close();
 		}
 	}
 
@@ -352,48 +247,8 @@ class UnixSocketImpl extends SocketImpl {
 	protected void shutdownOutput() throws IOException {
 		if (!closed && fd.valid()) {
 			NativeUnixSocket.shutdown(fd, SHUT_WR);
+			// TODO out.close();
 		}
 	}
 
-	/**
-	 * Changes the behavior to be somewhat lenient with respect to the
-	 * specification.
-	 *
-	 * In particular, we ignore calls to {@link Socket#getTcpNoDelay()} and
-	 * {@link Socket#setTcpNoDelay(boolean)}.
-	 */
-	static class Lenient extends UnixSocketImpl {
-		Lenient() {
-			super();
-		}
-
-		@Override
-		public void setOption(int optID, Object value) throws SocketException {
-			try {
-				super.setOption(optID, value);
-			} catch (SocketException e) {
-				switch (optID) {
-				case SocketOptions.TCP_NODELAY:
-					return;
-				default:
-					throw e;
-				}
-			}
-		}
-
-		@Override
-		public Object getOption(int optID) throws SocketException {
-			try {
-				return super.getOption(optID);
-			} catch (SocketException e) {
-				switch (optID) {
-				case SocketOptions.TCP_NODELAY:
-				case SocketOptions.SO_KEEPALIVE:
-					return false;
-				default:
-					throw e;
-				}
-			}
-		}
-	}
 }

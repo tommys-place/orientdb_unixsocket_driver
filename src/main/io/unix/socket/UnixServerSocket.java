@@ -1,8 +1,9 @@
 package io.unix.socket;
 
-//(c) 2015 kohl schutter
-//Released under the Apache licence - see LICENSE for details
-//Fork of https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+/*
+ * Original author Kohl Schutter
+ * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ */
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,6 +14,9 @@ import java.net.SocketException;
 import io.unix.ClassUtil;
 import io.unix.NativeUnixSocket;
 
+/**
+ * The server part of an AF_UNIX domain socket.
+ */
 public class UnixServerSocket extends ServerSocket {
 
 	private final UnixSocketImpl implementation;
@@ -75,8 +79,7 @@ public class UnixServerSocket extends ServerSocket {
 		}
 
 		if (!(endpoint instanceof UnixSocketAddress)) {
-			throw new IOException("Can only bind to endpoints of type "
-					+ UnixSocketAddress.class.getName());
+			throw new IOException("Can only bind to endpoints of type " + UnixSocketAddress.class.getName());
 		}
 
 		implementation.bind(backlog, endpoint);
@@ -106,9 +109,9 @@ public class UnixServerSocket extends ServerSocket {
 	public String toString() {
 
 		if (!isBound()) {
-			return "AFUNIXServerSocket[unbound]";
+			return "UNIXServerSocket[unbound]";
 		}
-		return "AFUNIXServerSocket[" + boundEndpoint.getSocketFile() + "]";
+		return "UNIXServerSocket[" + boundEndpoint.getSocketFile() + "]";
 	}
 
 	@Override
