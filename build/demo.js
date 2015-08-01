@@ -20,7 +20,7 @@ var db = server.use({
 });
 
 
-db.query('select count(*) from Country').then(function(){
+db.query('select count(*) from OUser').then(function(){
   console.log(arguments);
 }).catch(function(){
    console.log(arguments);
