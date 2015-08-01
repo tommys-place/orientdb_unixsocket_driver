@@ -13,8 +13,9 @@ import com.sun.jna.Structure;
 import com.sun.jna.ptr.IntByReference;
 
 /*
- * Original author Kohl Schutter
- * https://github.com/kohlschutter/junixsocket/tree/master/junixsocket-common
+ * Original author
+ * Copyright (c) 2009,2014 Dr. Christian Kohlschütter
+ * See http://code.google.com/p/junixsocket/ for further information.
  */
 
 
