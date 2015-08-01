@@ -1,0 +1,10 @@
+Original version from :
+
+junixsocket
+
+Unix Domain Sockets for Java + RMI-over-AF_UNIX.
+
+Copyright (c) 2009,2014 Dr. Christian Kohlschütter
+
+See http://code.google.com/p/junixsocket/ for further information.
+
