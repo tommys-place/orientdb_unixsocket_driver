@@ -90,7 +90,7 @@ Only parameter to setup inside xml configuration is **network.socket.unix** whic
 
 > **Reference:**
 
-> - Original project [junixsocket](https://github.com/kohlschutter/junixsocket) seems to be outdated?!
+> - Original project [junixsocket](https://github.com/kohlschutter/junixsocket)
 > - [JNR project](https://github.com/jnr) part of [Java Panama project](http://openjdk.java.net/projects/panama/)
 
 |
